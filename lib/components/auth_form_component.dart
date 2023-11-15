@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:login_app/utils/app_routes.dart';
 
 class AuthFormComponent extends StatelessWidget {
   const AuthFormComponent({super.key});
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController userController = TextEditingController();
+
+    TextEditingController passwordController = TextEditingController();
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -25,6 +29,7 @@ class AuthFormComponent extends StatelessWidget {
                 ),
               ),
               TextField(
+                controller: userController,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
@@ -55,6 +60,7 @@ class AuthFormComponent extends StatelessWidget {
                 ),
               ),
               TextField(
+                controller: passwordController,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
@@ -78,11 +84,11 @@ class AuthFormComponent extends StatelessWidget {
         ),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: Color(0xff44BD6E),
-            padding: EdgeInsets.symmetric(horizontal: 60, vertical: 8),
+            backgroundColor: const Color(0xff44BD6E),
+            padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 8),
           ),
-          onPressed: () {},
-          child: Text(
+          onPressed: () => Navigator.of(context).pushNamed(AppRoutes.info),
+          child: const Text(
             'Entrar',
             style: TextStyle(
               color: Colors.white,
