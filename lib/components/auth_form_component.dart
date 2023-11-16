@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:login_app/stores/form_store.dart';
 import 'package:login_app/utils/app_routes.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 class AuthFormComponent extends StatelessWidget {
   const AuthFormComponent({super.key});
@@ -9,6 +11,9 @@ class AuthFormComponent extends StatelessWidget {
     TextEditingController userController = TextEditingController();
 
     TextEditingController passwordController = TextEditingController();
+
+    FormStore formStore = FormStore();
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -28,22 +33,28 @@ class AuthFormComponent extends StatelessWidget {
                   ),
                 ),
               ),
-              TextField(
-                controller: userController,
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(
-                    borderSide: const BorderSide(
-                      color: Colors.white,
+              Observer(
+                builder: (context) {
+                  return TextField(
+                    controller: userController,
+                    onChanged: (value) => formStore.setUsername(value),
+                    decoration: InputDecoration(
+                      filled: true,
+                      errorText: formStore.loginError,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Colors.white,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      prefixIcon: const Icon(
+                        Icons.person,
+                        color: Colors.black,
+                      ),
                     ),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  prefixIcon: const Icon(
-                    Icons.person,
-                    color: Colors.black,
-                  ),
-                ),
+                  );
+                },
               ),
               const SizedBox(
                 height: 10,
@@ -59,22 +70,29 @@ class AuthFormComponent extends StatelessWidget {
                   ),
                 ),
               ),
-              TextField(
-                controller: passwordController,
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(
-                    borderSide: const BorderSide(
-                      color: Colors.white,
+              Observer(
+                builder: (context) {
+                  return TextField(
+                    onChanged: (value) => formStore.setPassword(value),
+                    controller: passwordController,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      filled: true,
+                      errorText: formStore.passwordError,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Colors.white,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      prefixIcon: const Icon(
+                        Icons.lock_sharp,
+                        color: Colors.black,
+                      ),
                     ),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  prefixIcon: const Icon(
-                    Icons.lock_sharp,
-                    color: Colors.black,
-                  ),
-                ),
+                  );
+                },
               ),
             ],
           ),
