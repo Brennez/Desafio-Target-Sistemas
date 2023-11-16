@@ -16,6 +16,20 @@ mixin _$FormStore on _FormStore, Store {
       (_$passwordErrorComputed ??= Computed<String?>(() => super.passwordError,
               name: '_FormStore.passwordError'))
           .value;
+  Computed<bool>? _$isValidUsernameFieldComputed;
+
+  @override
+  bool get isValidUsernameField => (_$isValidUsernameFieldComputed ??=
+          Computed<bool>(() => super.isValidUsernameField,
+              name: '_FormStore.isValidUsernameField'))
+      .value;
+  Computed<bool>? _$isValidPasswordFieldComputed;
+
+  @override
+  bool get isValidPasswordField => (_$isValidPasswordFieldComputed ??=
+          Computed<bool>(() => super.isValidPasswordField,
+              name: '_FormStore.isValidPasswordField'))
+      .value;
   Computed<String?>? _$loginErrorComputed;
 
   @override
@@ -56,35 +70,8 @@ mixin _$FormStore on _FormStore, Store {
     });
   }
 
-  late final _$_isValidPasswordAtom =
-      Atom(name: '_FormStore._isValidPassword', context: context);
-
-  @override
-  bool get _isValidPassword {
-    _$_isValidPasswordAtom.reportRead();
-    return super._isValidPassword;
-  }
-
-  @override
-  set _isValidPassword(bool value) {
-    _$_isValidPasswordAtom.reportWrite(value, super._isValidPassword, () {
-      super._isValidPassword = value;
-    });
-  }
-
   late final _$_FormStoreActionController =
       ActionController(name: '_FormStore', context: context);
-
-  @override
-  dynamic validatePasswordEntries() {
-    final _$actionInfo = _$_FormStoreActionController.startAction(
-        name: '_FormStore.validatePasswordEntries');
-    try {
-      return super.validatePasswordEntries();
-    } finally {
-      _$_FormStoreActionController.endAction(_$actionInfo);
-    }
-  }
 
   @override
   void setUsername(String value) {
@@ -114,6 +101,8 @@ mixin _$FormStore on _FormStore, Store {
 username: ${username},
 password: ${password},
 passwordError: ${passwordError},
+isValidUsernameField: ${isValidUsernameField},
+isValidPasswordField: ${isValidPasswordField},
 loginError: ${loginError}
     ''';
   }

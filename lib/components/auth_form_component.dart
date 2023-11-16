@@ -105,7 +105,12 @@ class AuthFormComponent extends StatelessWidget {
             backgroundColor: const Color(0xff44BD6E),
             padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 8),
           ),
-          onPressed: () => Navigator.of(context).pushNamed(AppRoutes.info),
+          onPressed: () {
+            if (formStore.isValidUsernameField &&
+                formStore.isValidPasswordField) {
+              Navigator.of(context).pushNamed(AppRoutes.info);
+            }
+          },
           child: const Text(
             'Entrar',
             style: TextStyle(

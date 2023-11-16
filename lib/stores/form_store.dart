@@ -11,9 +11,6 @@ abstract class _FormStore with Store {
   @observable
   String password = '';
 
-  @observable
-  bool _isValidPassword = false;
-
   @computed
   String? get passwordError {
     if (password.isEmpty) {
@@ -22,18 +19,27 @@ abstract class _FormStore with Store {
       return 'A senha deve ter pelo menos dois caracteres';
     } else if (password.length > 20) {
       return 'A senha não pode ter mais de 20 caracteres';
-    } else if (!_isValidPassword) {
-      return 'A senha só pode conter letras e números';
     } else if (password.endsWith(" ")) {
       return 'A senha não pode terminar com espaço';
+    } else if (!isValidPasswordField) {
+      return 'A senha só pode conter letras e números';
     }
     return null;
   }
 
-  @action
-  validatePasswordEntries() {
-    _isValidPassword =
-        password.length >= 2 && RegExp(r'^[a-zA-Z0-9\s]+$').hasMatch(password);
+  @computed
+  bool get isValidUsernameField {
+    return username.length >= 2 &&
+        username.length <= 20 &&
+        !username.endsWith(" ");
+  }
+
+  @computed
+  bool get isValidPasswordField {
+    return password.length >= 2 &&
+        RegExp(r'^[a-zA-Z0-9\s]+$').hasMatch(password) &&
+        password.length <= 20 &&
+        !password.endsWith(" ");
   }
 
   @computed
@@ -56,6 +62,5 @@ abstract class _FormStore with Store {
   @action
   void setPassword(String value) {
     password = value;
-    validatePasswordEntries();
   }
 }
