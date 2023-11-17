@@ -1,11 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:login_app/components/note_component.dart';
 import 'package:login_app/components/text_button_component.dart';
+import 'package:login_app/stores/notes_store.dart';
+
+final notesStore = NotesStore();
 
 class InformationsScreen extends StatelessWidget {
   const InformationsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController _fieldController = TextEditingController();
+
+    void removeNote(String id) {
+      notesStore.remove(id);
+    }
+
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -18,97 +29,72 @@ class InformationsScreen extends StatelessWidget {
               ]),
         ),
         child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              children: [
-                Expanded(
-                  flex: 4,
+          child: Column(
+            children: [
+              Expanded(
+                flex: 8,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Card(
                     margin: const EdgeInsets.symmetric(vertical: 20),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            top: 10,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                flex: 5,
-                                child: Text(
-                                  'Texto Digitado 1',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 18),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 2,
-                                child: Row(
-                                  children: [
-                                    IconButton(
-                                      onPressed: () {},
-                                      icon: const Icon(
-                                        Icons.edit,
-                                        size: 30,
-                                      ),
-                                    ),
-                                    IconButton(
-                                      onPressed: () {},
-                                      icon: const Icon(
-                                        Icons.close,
-                                        size: 30,
-                                        color: Colors.red,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const Divider(
-                          indent: 10,
-                          endIndent: 10,
-                          thickness: 1.8,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
-                  child: Expanded(
-                    flex: 4,
-                    child: TextField(
-                      textAlign: TextAlign.center,
-                      decoration: InputDecoration(
-                        hintText: 'Digite seu texto',
-                        hintStyle: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                            color: Colors.white,
-                          ),
-                          borderRadius: BorderRadius.circular(8),
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        top: 10,
+                      ),
+                      child: Observer(
+                        builder: (context) => ListView.builder(
+                          itemCount: notesStore.notes.length,
+                          itemBuilder: (context, index) {
+                            return NoteComponent(
+                              note: notesStore.notes[index],
+                              onRemove: removeNote,
+                            );
+                          },
                         ),
                       ),
                     ),
                   ),
                 ),
-                const Expanded(
-                  flex: 1,
-                  child: TextButtonComponent(),
-                )
-              ],
-            ),
+              ),
+              Expanded(
+                flex: 4,
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  child: TextField(
+                    controller: _fieldController,
+                    textAlign: TextAlign.center,
+                    decoration: InputDecoration(
+                      hintText: 'Digite seu texto',
+                      hintStyle: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Colors.white,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    onSubmitted: (_) {
+                      if (_fieldController.text.isEmpty) {
+                        return;
+                      } else {
+                        notesStore.addNote(_fieldController.text);
+                        _fieldController.clear();
+                      }
+                    },
+                  ),
+                ),
+              ),
+              const Expanded(
+                flex: 1,
+                child: TextButtonComponent(),
+              )
+            ],
           ),
         ),
       ),
