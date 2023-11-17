@@ -58,11 +58,11 @@ mixin _$NotesStore on _NotesStore, Store {
   }
 
   @override
-  void update(String id, String newText) {
+  void update(String id, int index, String newText) {
     final _$actionInfo =
         _$_NotesStoreActionController.startAction(name: '_NotesStore.update');
     try {
-      return super.update(id, newText);
+      return super.update(id, index, newText);
     } finally {
       _$_NotesStoreActionController.endAction(_$actionInfo);
     }

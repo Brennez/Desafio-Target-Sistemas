@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:login_app/components/label_component.dart';
 
 import '../models/note_model.dart';
 
 class NoteComponent extends StatelessWidget {
   final Note note;
+  final int index;
   final void Function(String) onRemove;
+  final void Function(String, int, String) onUpdate;
 
   const NoteComponent({
     Key? key,
     required this.note,
+    required this.index,
     required this.onRemove,
+    required this.onUpdate,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Future<bool> showConfirmationDialog(BuildContext context) async {
+    Future<bool> _showConfirmationDialog(BuildContext context) async {
       return await showDialog(
         context: context,
         builder: (context) {
@@ -44,6 +49,74 @@ class NoteComponent extends StatelessWidget {
       );
     }
 
+    Future<void> _showUpdateNoteModal(BuildContext context) async {
+      await showDialog(
+        context: context,
+        builder: (context) {
+          TextEditingController _newNoteController = TextEditingController();
+          return Material(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    'Nota antiga',
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black54),
+                  ),
+                ),
+                LabelComponent(text: note.text),
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    'Nova nota',
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black54),
+                  ),
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * .6,
+                  child: TextField(
+                    controller: _newNoteController,
+                    textAlign: TextAlign.center,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.zero,
+                      hintText: 'Digite uma nova nota',
+                      hintStyle: const TextStyle(
+                        fontSize: 16,
+                        color: Colors.grey,
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Colors.white,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    onSubmitted: (_) {
+                      if (_newNoteController.text.isEmpty) {
+                        return;
+                      } else {
+                        onUpdate(note.id, index, _newNoteController.text);
+                        Navigator.of(context).pop();
+                      }
+                    },
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      );
+    }
+
     return Column(
       children: [
         Row(
@@ -68,7 +141,9 @@ class NoteComponent extends StatelessWidget {
               child: Row(
                 children: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      _showUpdateNoteModal(context);
+                    },
                     icon: const Icon(
                       Icons.edit,
                       size: 30,
@@ -76,7 +151,7 @@ class NoteComponent extends StatelessWidget {
                   ),
                   IconButton(
                     onPressed: () async {
-                      if (await showConfirmationDialog(context)) {
+                      if (await _showConfirmationDialog(context)) {
                         onRemove(note.id);
                       }
                     },

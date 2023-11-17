@@ -17,6 +17,10 @@ class InformationsScreen extends StatelessWidget {
       notesStore.remove(id);
     }
 
+    void updateNote(String id, int index, String newText) {
+      notesStore.update(id, index, newText);
+    }
+
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -47,7 +51,9 @@ class InformationsScreen extends StatelessWidget {
                           itemBuilder: (context, index) {
                             return NoteComponent(
                               note: notesStore.notes[index],
+                              index: index,
                               onRemove: removeNote,
+                              onUpdate: updateNote,
                             );
                           },
                         ),
@@ -61,32 +67,34 @@ class InformationsScreen extends StatelessWidget {
                 child: Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                  child: TextField(
-                    controller: _fieldController,
-                    textAlign: TextAlign.center,
-                    decoration: InputDecoration(
-                      hintText: 'Digite seu texto',
-                      hintStyle: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                      ),
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                          color: Colors.white,
+                  child: Observer(
+                    builder: (context) => TextField(
+                      controller: _fieldController,
+                      textAlign: TextAlign.center,
+                      decoration: InputDecoration(
+                        hintText: 'Digite seu texto',
+                        hintStyle: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
                         ),
-                        borderRadius: BorderRadius.circular(8),
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderSide: const BorderSide(
+                            color: Colors.white,
+                          ),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
                       ),
+                      onSubmitted: (_) {
+                        if (_fieldController.text.isEmpty) {
+                          return;
+                        } else {
+                          notesStore.addNote(_fieldController.text);
+                          _fieldController.clear();
+                        }
+                      },
                     ),
-                    onSubmitted: (_) {
-                      if (_fieldController.text.isEmpty) {
-                        return;
-                      } else {
-                        notesStore.addNote(_fieldController.text);
-                        _fieldController.clear();
-                      }
-                    },
                   ),
                 ),
               ),

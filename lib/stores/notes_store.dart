@@ -28,8 +28,10 @@ abstract class _NotesStore with Store {
   }
 
   @action
-  void update(String id, String newText) {
-    final note = _notes.firstWhere((note) => note.id == id);
-    note.text = newText;
+  void update(String id, int index, String newText) {
+    final oldNote = _notes.firstWhere((note) => note.id == id);
+    final newNote = Note(text: newText, id: oldNote.id);
+    _notes.removeAt(index);
+    _notes.insert(index, newNote);
   }
 }
