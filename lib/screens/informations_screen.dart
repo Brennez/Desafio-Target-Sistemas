@@ -6,8 +6,21 @@ import 'package:login_app/stores/notes_store.dart';
 
 final notesStore = NotesStore();
 
-class InformationsScreen extends StatelessWidget {
+class InformationsScreen extends StatefulWidget {
   const InformationsScreen({super.key});
+
+  @override
+  State<InformationsScreen> createState() => _InformationsScreenState();
+}
+
+class _InformationsScreenState extends State<InformationsScreen> {
+  @override
+  void initState() {
+    super.initState();
+    notesStore.loadSavedNotes().then((_) {
+      print('CONCLUIDO');
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
