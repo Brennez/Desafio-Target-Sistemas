@@ -1,16 +1,56 @@
-# login_app
+# 🚀 Login App
 
-A new Flutter project.
+O projeto consiste em uma aplicação que realiza um login, após passar em todas as validações de campo. Ao logar, você poderá criar, editar e remover notas, que serão persistidas de forma local no seu smartphone. Então relaxe, e divirta-se utilizando o app.
 
-## Getting Started
+## 📱 Screenshots
 
-This project is a starting point for a Flutter application.
+| Tela de Login                | Tela de Captura de Informações   | Tela de Atualização                    | Tela de remoção                   |
+|:----------------------------:|:--------------------------------:|:-----------------------------:|:-------------------------------:|
+| <img src="screenshots/screenshot-1.png" width="180"> | <img src="screenshots/screenshot-2.png" width="180"> | <img src="screenshots/screenshot-3.png" width="180"> | <img src="screenshots/screenshot-4.png" width="180"> |
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+
+## ✨ Funcionalidades
+
+- Logar no aplicativo após a validação dos campos.
+- Criar uma nova nota.
+- Editar uma nota.
+- Remover uma nota.
+- visualizar todas as notas.
+
+## 💻 Como Executar o app
+
+```bash
+git clone https://github.com/Brennez/seu-repositorio.git
+
+cd seu-repositorio
+
+flutter pub get
+
+flutter run
+```
+
+## Tecnologias Utilizadas
+
+[![Flutter](https://img.shields.io/badge/Flutter-blue?style=flat-square&logo=flutter)](https://flutter.dev/)
+[![Dart](https://img.shields.io/badge/Dart-blue?style=flat-square&logo=dart)](https://dart.dev/)
+[![Mobx](https://img.shields.io/badge/Mobx-blue?style=flat-square&logo=mobx)](https://pub.dev/packages/flutter_mobx)
+
+## Contribuição
+
+1. Faça um Fork do projeto
+2. Crie uma nova branch (`git checkout -b feature/nova-feature`)
+3. Faça commit das suas mudanças (`git commit -am 'Adiciona nova feature'`)
+4. Faça push para a branch (`git push origin feature/nova-feature`)
+5. Abra um Pull Request
+
+# Contato
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Profile-blue?style=flat&logo=linkedin)](https://www.linkedin.com/in/tchalisson-brenne-27911421b/)
+[![GitHub](https://img.shields.io/badge/GitHub-Profile-brightgreen?style=flat&logo=github)](https://github.com/Brennez)
+[![Email](https://img.shields.io/badge/Email-Contact-red?style=flat&logo=gmail)](mailto:tchalisantos40@gmail.com)
+
+
+
