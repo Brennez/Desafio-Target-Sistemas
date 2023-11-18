@@ -127,11 +127,16 @@ class NoteComponent extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    note.text,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.w700, fontSize: 18),
+                  Container(
+                    width: 200,
+                    child: Text(
+                      note.text,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w700, fontSize: 18),
+                    ),
                   ),
                 ],
               ),

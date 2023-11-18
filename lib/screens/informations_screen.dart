@@ -14,12 +14,15 @@ class InformationsScreen extends StatefulWidget {
 }
 
 class _InformationsScreenState extends State<InformationsScreen> {
+  late FocusNode _focusNode;
   @override
   void initState() {
     super.initState();
-    notesStore.loadSavedNotes().then((_) {
-      print('CONCLUIDO');
-    });
+    _focusNode = FocusNode();
+
+    Future.delayed(Duration.zero, () => _focusNode.requestFocus());
+
+    notesStore.loadSavedNotes().then((_) {});
   }
 
   @override
@@ -32,7 +35,10 @@ class _InformationsScreenState extends State<InformationsScreen> {
 
     void updateNote(String id, int index, String newText) {
       notesStore.update(id, index, newText);
+      _focusNode.requestFocus();
     }
+
+    String? _fieldError = null;
 
     return Scaffold(
       body: Container(
@@ -83,6 +89,8 @@ class _InformationsScreenState extends State<InformationsScreen> {
                   child: Observer(
                     builder: (context) => TextField(
                       controller: _fieldController,
+                      focusNode: _focusNode,
+                      autofocus: true,
                       textAlign: TextAlign.center,
                       decoration: InputDecoration(
                         hintText: 'Digite seu texto',
@@ -98,13 +106,27 @@ class _InformationsScreenState extends State<InformationsScreen> {
                           ),
                           borderRadius: BorderRadius.circular(8),
                         ),
+                        errorText: _fieldError,
                       ),
                       onSubmitted: (_) {
                         if (_fieldController.text.isEmpty) {
-                          return;
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                duration: Duration(milliseconds: 800),
+                                backgroundColor: Colors.white,
+                                content: Text(
+                                  'A nota não pode ser vazia.',
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                )),
+                          );
+                          _focusNode.requestFocus();
                         } else {
                           notesStore.addNote(_fieldController.text);
                           _fieldController.clear();
+                          _focusNode.requestFocus();
                         }
                       },
                     ),

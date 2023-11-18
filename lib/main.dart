@@ -21,10 +21,10 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       routes: {
-        AppRoutes.login: (context) => InformationsScreen(),
+        AppRoutes.login: (context) => LoginScreen(),
         AppRoutes.info: (context) => InformationsScreen(),
       },
-      initialRoute: AppRoutes.info,
+      initialRoute: AppRoutes.login,
     );
   }
 }
