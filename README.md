@@ -24,29 +24,24 @@ O projeto consiste em uma aplicação que realiza um login, após passar em toda
 
 ```bash
 git clone git@github.com:Brennez/Desafio-Target-Sistemas.git
-
-cd seu-repositorio
-
+```
+```bash
+cd Desafio-Target-Sistemas
+```
+```bash
 flutter pub get
-
+```
+```bash
 flutter run
 ```
 
-## Tecnologias Utilizadas
+## ✨ Tecnologias Utilizadas
 
 [![Flutter](https://img.shields.io/badge/Flutter-blue?style=flat-square&logo=flutter)](https://flutter.dev/)
 [![Dart](https://img.shields.io/badge/Dart-blue?style=flat-square&logo=dart)](https://dart.dev/)
 [![Mobx](https://img.shields.io/badge/Mobx-blue?style=flat-square&logo=mobx)](https://pub.dev/packages/flutter_mobx)
 
-## Contribuição
-
-1. Faça um Fork do projeto
-2. Crie uma nova branch (`git checkout -b feature/nova-feature`)
-3. Faça commit das suas mudanças (`git commit -am 'Adiciona nova feature'`)
-4. Faça push para a branch (`git push origin feature/nova-feature`)
-5. Abra um Pull Request
-
-# Contato
+# 💙 Contato
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Profile-blue?style=flat&logo=linkedin)](https://www.linkedin.com/in/tchalisson-brenne-27911421b/)
 [![GitHub](https://img.shields.io/badge/GitHub-Profile-brightgreen?style=flat&logo=github)](https://github.com/Brennez)
