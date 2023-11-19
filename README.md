@@ -23,7 +23,7 @@ O projeto consiste em uma aplicação que realiza um login, após passar em toda
 ## 💻 Como Executar o app
 
 ```bash
-git clone https://github.com/Brennez/seu-repositorio.git
+git clone git@github.com:Brennez/Desafio-Target-Sistemas.git
 
 cd seu-repositorio
 
